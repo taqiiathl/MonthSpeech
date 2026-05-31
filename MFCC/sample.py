@@ -41,7 +41,7 @@ def record_samples(target_dir, total_samples=50, duration=2, sample_rate=44100):
     print("=" * 50)
 
 # --- KONFIGURASI PATH ---
-FOLDER_TUJUAN = 'dataset_clean/Desember'
+FOLDER_TUJUAN = 'dataset_clean/Oktober'
 
 # Jalankan fungsi
 record_samples(FOLDER_TUJUAN, total_samples=50, duration=2)
