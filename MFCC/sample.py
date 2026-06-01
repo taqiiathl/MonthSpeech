@@ -16,7 +16,7 @@ def record_samples(target_dir, total_samples=50, duration=2, sample_rate=44100):
     print("Perekaman akan dimulai dalam 3 detik...")
     time.sleep(3)
     
-    for i in range(1, total_samples + 1):
+    for i in range(51, total_samples + 1):
         file_name = f"sample_{i:03d}.wav"
         file_path = os.path.join(target_dir, file_name)
         
@@ -41,7 +41,7 @@ def record_samples(target_dir, total_samples=50, duration=2, sample_rate=44100):
     print("=" * 50)
 
 # --- KONFIGURASI PATH ---
-FOLDER_TUJUAN = 'dataset_clean/Oktober'
+FOLDER_TUJUAN = 'dataset_clean/April'
 
 # Jalankan fungsi
-record_samples(FOLDER_TUJUAN, total_samples=50, duration=2)
+record_samples(FOLDER_TUJUAN, total_samples=100, duration=2)
