@@ -1,0 +1,556 @@
+/* ============================================================
+   style.css — SuaraKita TTS App
+   
+   PANDUAN KUSTOMISASI
+   -------------------
+   Semua nilai desain dikumpulkan di :root di bawah ini.
+   Untuk mengubah tampilan, cukup edit variabel di bagian ini
+   tanpa perlu menyentuh kode CSS lainnya.
+   ============================================================ */
+
+/* ── 1. DESIGN TOKENS ──────────────────────────────────────── */
+:root {
+  /* Warna utama (ganti sesuai brand Anda) */
+  --color-primary:        #2563EB;   /* biru utama */
+  --color-primary-light:  #DBEAFE;   /* biru muda (hover, fill) */
+  --color-primary-dark:   #1D4ED8;   /* biru gelap (hover tombol) */
+
+  /* Warna aksen (untuk badge, ikon aktif) */
+  --color-accent:         #7C3AED;   /* ungu */
+
+  /* Teks */
+  --color-text-heading:   #0F172A;
+  --color-text-body:      #334155;
+  --color-text-muted:     #64748B;
+  --color-text-inverse:   #FFFFFF;
+
+  /* Permukaan */
+  --color-bg-page:        #F8FAFF;
+  --color-bg-card:        #FFFFFF;
+  --color-bg-input:       #F1F5F9;
+
+  /* Border */
+  --color-border:         #E2E8F0;
+  --color-border-focus:   #2563EB;
+
+  /* Status */
+  --color-success:        #10B981;
+  --color-error:          #EF4444;
+  --color-error-light:    #FEE2E2;
+
+  /* Waveform */
+  --color-wave-idle:      #CBD5E1;
+  --color-wave-active:    #2563EB;
+
+  /* Radius */
+  --radius-sm:    6px;
+  --radius-md:    12px;
+  --radius-lg:    18px;
+  --radius-xl:    24px;
+
+  /* Bayangan */
+  --shadow-card:  0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
+  --shadow-btn:   0 2px 8px rgba(37,99,235,.3);
+
+  /* Tipografi */
+  --font-body:  'Plus Jakarta Sans', sans-serif;
+  --font-mono:  'DM Mono', monospace;
+  --font-size-base: 15px;
+  --line-height: 1.65;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+
+  /* Lebar konten */
+  --max-width: 720px;
+
+  /* Transisi */
+  --transition: 160ms ease;
+}
+
+
+/* ── 2. RESET & BASE ────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: var(--font-size-base);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg-page);
+  color: var(--color-text-body);
+  line-height: var(--line-height);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Container utility */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-lg);
+}
+
+
+/* ── 3. HEADER ──────────────────────────────────────────────── */
+.site-header {
+  background: var(--color-bg-card);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-lg) 0;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--color-text-heading);
+}
+
+.brand-icon {
+  color: var(--color-primary);
+  display: flex;
+}
+
+.brand-rect {
+  fill: var(--color-primary);
+}
+
+.brand-name {
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  flex: 1;
+}
+
+
+/* ── 4. MAIN LAYOUT ────────────────────────────────────────── */
+.main-layout {
+  flex: 1;
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  position: relative;
+}
+
+
+/* ── 5. KARTU ──────────────────────────────────────────────── */
+.card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.card-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.card-header h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-heading);
+  letter-spacing: -0.01em;
+}
+
+.char-counter {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.char-counter.warn {
+  color: var(--color-error);
+}
+
+
+/* ── 6. TEXTAREA ────────────────────────────────────────────── */
+.teks-input {
+  width: 100%;
+  min-height: 180px;
+  resize: vertical;
+  background: var(--color-bg-input);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text-body);
+  line-height: var(--line-height);
+  transition: border-color var(--transition), background var(--transition);
+  outline: none;
+}
+
+.teks-input:focus {
+  border-color: var(--color-border-focus);
+  background: var(--color-bg-card);
+}
+
+.teks-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+
+/* ── 7. KONTROL (PILL GROUP) ────────────────────────────────── */
+.controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+.control-group {
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.control-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--color-text-muted);
+}
+
+.pill-group {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+/* Sembunyikan radio asli */
+.pill input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.pill span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 6px 14px;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-bg-card);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-body);
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+  user-select: none;
+}
+
+.pill span:hover {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary-dark);
+}
+
+.pill input[type="radio"]:checked + span {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+.pill input[type="radio"]:focus-visible + span {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+
+/* ── 8. TOMBOL SYNTHESIZE ───────────────────────────────────── */
+.btn-synthesize {
+  margin-top: var(--space-lg);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: 14px var(--space-lg);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.btn-synthesize:hover {
+  background: var(--color-primary-dark);
+}
+
+.btn-synthesize:active {
+  transform: scale(0.98);
+  box-shadow: none;
+}
+
+.btn-synthesize:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-icon {
+  display: flex;
+  flex-shrink: 0;
+}
+
+
+/* ── 9. PESAN ERROR ─────────────────────────────────────────── */
+.error-msg {
+  margin-top: var(--space-md);
+  padding: 10px var(--space-md);
+  background: var(--color-error-light);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-sm);
+  color: var(--color-error);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.error-msg[hidden] { display: none; }
+
+
+/* ── 10. OUTPUT CARD ────────────────────────────────────────── */
+.card-output[hidden] { display: none; }
+
+.output-badges {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: var(--radius-lg);
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+
+/* ── 11. WAVEFORM ───────────────────────────────────────────── */
+.waveform-wrap {
+  margin: var(--space-md) 0;
+  background: var(--color-bg-input);
+  border-radius: var(--radius-md);
+  padding: 12px var(--space-md);
+  overflow: hidden;
+}
+
+.waveform {
+  width: 100%;
+  height: 60px;
+  display: block;
+}
+
+
+/* ── 12. AUDIO PLAYER ───────────────────────────────────────── */
+.audio-player {
+  width: 100%;
+  border-radius: var(--radius-md);
+  outline: none;
+  margin-top: var(--space-sm);
+}
+
+/* Webkit custom (opsional) */
+audio::-webkit-media-controls-panel {
+  background: var(--color-primary-light);
+}
+
+
+/* ── 13. TOMBOL OUTPUT ──────────────────────────────────────── */
+.output-actions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-top: var(--space-md);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 10px var(--space-md);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.btn-secondary:hover {
+  background: var(--color-primary-dark);
+}
+
+.btn-secondary:active {
+  transform: scale(0.97);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 10px var(--space-md);
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.btn-ghost:hover {
+  background: var(--color-bg-input);
+  color: var(--color-text-heading);
+  border-color: var(--color-text-muted);
+}
+
+
+/* ── 14. LOADING OVERLAY ────────────────────────────────────── */
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(248,250,255,.85);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
+
+.loading-overlay[hidden] { display: none; }
+
+.loading-inner {
+  text-align: center;
+}
+
+.loading-inner p {
+  margin-top: var(--space-md);
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+/* Tiga titik bergerak */
+.spinner {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+.spinner span {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  animation: bounce 1.2s infinite ease-in-out;
+}
+
+.spinner span:nth-child(2) { animation-delay: .2s; }
+.spinner span:nth-child(3) { animation-delay: .4s; }
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: .5; }
+  40%           { transform: scale(1);   opacity: 1; }
+}
+
+
+/* ── 15. FOOTER ─────────────────────────────────────────────── */
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-lg) 0;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.site-footer strong {
+  color: var(--color-text-body);
+  font-weight: 600;
+}
+
+
+/* ── 16. RESPONSIF ──────────────────────────────────────────── */
+@media (max-width: 520px) {
+  .container {
+    padding-inline: var(--space-md);
+  }
+
+  .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+
+  .controls-row {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .card {
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+  }
+
+  .output-actions {
+    flex-direction: column;
+  }
+
+  .btn-secondary,
+  .btn-ghost {
+    width: 100%;
+    justify-content: center;
+  }
+}
