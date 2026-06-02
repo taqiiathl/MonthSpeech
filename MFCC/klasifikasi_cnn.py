@@ -1,12 +1,18 @@
 import numpy as np
+import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
-import matplotlib.pyplot as plt  
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, BatchNormalization
+from tensorflow.keras.callbacks import EarlyStopping
+import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, classification_report
 import seaborn as sns
+
+# Set random seed untuk hasil yang konsisten
+tf.keras.utils.set_random_seed(42)
+tf.config.experimental.enable_op_determinism()
 print("=== [PROSES 3: TRANING MODEL CNN] ===")
 
 # 1. Memuat Ciri Hasil dari Tahap 2
@@ -34,16 +40,19 @@ print(f"Log: Data Latih = {X_train.shape[0]}, Data Uji = {X_test.shape[0]}")
 # 5. Arsitektur CNN
 model = Sequential([
     Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(X.shape[1], X.shape[2], 1)),
+    BatchNormalization(),
     MaxPooling2D(pool_size=(2, 2)),
-    Dropout(0.2),
+    Dropout(0.25),
     
     Conv2D(64, kernel_size=(3, 3), activation='relu'),
+    BatchNormalization(),
     MaxPooling2D(pool_size=(2, 2)),
-    Dropout(0.2),
+    Dropout(0.25),
     
     Flatten(),
     Dense(128, activation='relu'),
-    Dropout(0.3),
+    BatchNormalization(),
+    Dropout(0.4),
     Dense(jumlah_kelas, activation='softmax')
 ])
 
@@ -53,9 +62,10 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 print("\n--- STRUKTUR ARSITEKTUR CNN ANDA ---")
 model.summary()
 
-# 6. Proses Training
+# 6. Proses Training dengan EarlyStopping
 print("\n--- MEMULAI PROSES TRAINING MODEL ---")
-history = model.fit(X_train, y_train, epochs=20, batch_size=16, validation_data=(X_test, y_test))
+early_stop = EarlyStopping(monitor='val_accuracy', patience=10, restore_best_weights=True)
+history = model.fit(X_train, y_train, epochs=50, batch_size=16, validation_data=(X_test, y_test), callbacks=[early_stop])
 
 # 7. Evaluasi Akhir
 print("\n--- HASIL EVALUASI AKHIR ---")

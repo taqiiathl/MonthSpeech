@@ -10,7 +10,7 @@ import os
 MAX_LEN = 50
 N_MFCC = 13
 SAMPLE_RATE = 16000
-DURATION = 2  # Durasi rekam otomatis (2 detik cukup untuk sebut nama bulan)
+DURATION = 3  # Durasi rekam (3 detik agar nama bulan panjang tidak terpotong)
 
 CLASSES = [
     'Agustus', 'April', 'Desember', 'Februari', 'Januari', 'Juli', 
