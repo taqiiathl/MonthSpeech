@@ -114,6 +114,27 @@ print(
 plt.figure(figsize=(10, 8))
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
             xticklabels=nama_kelas, yticklabels=nama_kelas)
+# 2. Encoding Label (Mengubah teks bulan menjadi angka kategori)
+le = LabelEncoder()
+y_encoded = le.fit_transform(y)
+y_categorical = to_categorical(y_encoded)
+jumlah_kelas = len(le.classes_)
+
+print("Log: Daftar kelas/bulan yang dideteksi:", le.classes_)
+
+# =====================================================================
+# TAMBAHAN: PRINT HASIL X LABEL DAN Y LABEL DALAM FORMAT CSV
+# =====================================================================
+print("\n=== [LOG DATASET FORMAT CSV] ===")
+print("Index,File_Label,Encoded_Label,X_Shape_Asli") # Header CSV
+
+# Menampilkan 10 data pertama sebagai representasi format CSV
+for i in range(min(10, len(y))): 
+    print(f"{i},{y[i]},{y_encoded[i]},{X[i].shape}")
+
+print(f"... total {len(y)} baris data.")
+print("================================\n")
+# =====================================================================
 
 plt.title('Confusion Matrix - Pengenalan Suara Nama Bulan')
 plt.ylabel('Label Sebenarnya (True Label)')

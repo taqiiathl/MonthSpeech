@@ -21,11 +21,15 @@ for nama_bulan in os.listdir(DATASET_CLEAN):
             if nama_file.endswith('.wav'):
                 file_path = os.path.join(folder_bulan, nama_file)
                 
-                # Load audio bersih
-                audio, sr = librosa.load(file_path, sr=16000)
                 
+                audio, sr = librosa.load(file_path, sr=16000)
+                trim, _ = librosa.effects.trim(y=audio,top_db=30)
+                normals= librosa.util.normalize(trim)
+                prem= librosa.effects.preemphasis(normals)
+
                 # Ekstraksi MFCC
-                mfcc = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=N_MFCC)
+                mfcc = librosa.feature.mfcc(y=prem, sr=sr, n_mfcc=N_MFCC)
+                
                 bentuk_asal = mfcc.shape
                 
                 # Padding / Truncating agar ukuran matriks seragam

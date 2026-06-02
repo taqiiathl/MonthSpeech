@@ -33,8 +33,8 @@ def record_samples(target_dir, total_samples=50, duration=2, sample_rate=44100):
         
         # --- PROSES JEDA (DELAY) ---
         if i < total_samples:  # Jangan beri jeda jika ini sudah sampel terakhir
-            print("TUNGGU YA!!!!!!! Jeda 2 detik... Bersiap untuk sampel berikutnya.")
-            time.sleep(2)
+            print("TUNGGU YA!!!!!!! Jeda 1 detik... Bersiap untuk sampel berikutnya.")
+            time.sleep(1)
 
     print("\n" + "=" * 50)
     print(f" Selesai ALHAMDULILLAH! Semua {total_samples} sampel berhasil disimpan di: {target_dir}")
