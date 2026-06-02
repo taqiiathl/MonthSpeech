@@ -6,9 +6,7 @@ import sounddevice as sd
 from scipy.io.wavfile import write
 import os
 
-# ==========================================
 # KONFIGURASI PARAMETER (WAJIB SAMA DENGAN TRAINING)
-# ==========================================
 MAX_LEN = 50
 N_MFCC = 13
 SAMPLE_RATE = 16000
@@ -29,9 +27,7 @@ else:
     model = None
     status_model = "Model CNN: NOT FOUND!"
 
-# ==========================================
 # 2. FUNGSI PIPELINE SUARA (BAGIAN YANG DIUBAH/DIREVISI)
-# ==========================================
 def proses_audio_ke_mfcc(file_path):
     # Load audio
     audio, sr = librosa.load(file_path, sr=SAMPLE_RATE, mono=True)
@@ -61,9 +57,7 @@ def proses_audio_ke_mfcc(file_path):
         
     return mfcc
 
-# ==========================================
 # 3. MEMBUAT TAMPILAN INTERFACE DENGAN CV2 (TETAP SAMA)
-# ==========================================
 # Siapkan canvas hitam ukuran 600x400 piksel
 canvas = np.zeros((400, 600, 3), dtype="uint8")
 window_name = "Aplikasi Klasifikasi Bulan - CNN Realtime"

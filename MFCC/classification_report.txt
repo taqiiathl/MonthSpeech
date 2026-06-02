@@ -1,0 +1,20 @@
+Classification Report
+
+              precision    recall  f1-score   support
+
+     Agustus       1.00      1.00      1.00         6
+       April       0.95      1.00      0.98        21
+    Desember       0.92      1.00      0.96        23
+    Februari       1.00      1.00      1.00        25
+     Januari       1.00      1.00      1.00        23
+        Juli       0.94      1.00      0.97        17
+        Juni       1.00      0.96      0.98        28
+       Maret       1.00      1.00      1.00        28
+         Mei       1.00      1.00      1.00        22
+    November       0.90      0.83      0.86        23
+     Oktober       0.93      0.88      0.90        16
+   September       1.00      1.00      1.00         8
+
+    accuracy                           0.97       240
+   macro avg       0.97      0.97      0.97       240
+weighted avg       0.97      0.97      0.97       240
