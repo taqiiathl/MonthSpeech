@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SuaraKita - Platform Suara Cerdas</title>
+  <meta name="description" content="SuaraKita – platform cerdas untuk konversi Suara ke Teks dan Teks ke Suara menggunakan AI.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Animated background blobs -->
+  <div class="bg-gradient bg-gradient-1"></div>
+  <div class="bg-gradient bg-gradient-2"></div>
+  <div class="bg-gradient bg-gradient-3"></div>
+
+  <div class="container">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" y1="19" x2="12" y2="22"/>
+        </svg>
+        <h1>SuaraKita</h1>
+      </div>
+      <p class="subtitle">Platform cerdas untuk konversi Suara ke Teks &amp; Teks ke Suara</p>
+    </header>
+
+    <!-- Main card -->
+    <div class="glass-panel">
+
+      <!-- Tab navigation -->
+      <div class="tabs">
+        <button class="tab-btn active" id="tab-tts" data-target="tts-section">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+          Text to Speech
+        </button>
+        <button class="tab-btn" id="tab-asr" data-target="asr-section">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          </svg>
+          Speech to Text
+        </button>
+      </div>
+
+      <div class="tab-content-wrapper">
+
+        <!-- ═══════════════════════════════ TTS SECTION ═══ -->
+        <div id="tts-section" class="tab-content active">
+
+          <p class="section-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+            Masukkan Teks
+          </p>
+
+          <div class="input-group">
+            <label for="tts-input">Teks yang ingin diucapkan</label>
+            <textarea id="tts-input" placeholder="Ketik atau tempel teks di sini..." maxlength="5000"></textarea>
+            <div class="char-count"><span id="charCount">0</span> / 5000</div>
+          </div>
+
+          <div class="controls-row">
+            <div class="control-group">
+              <span class="control-label">Kecepatan</span>
+              <div class="radio-group">
+                <input type="radio" id="speed-slow"   name="speed" value="slow">
+                <label for="speed-slow">Lambat</label>
+                <input type="radio" id="speed-normal" name="speed" value="normal" checked>
+                <label for="speed-normal">Normal</label>
+                <input type="radio" id="speed-fast"   name="speed" value="fast">
+                <label for="speed-fast">Cepat</label>
+              </div>
+            </div>
+            <div class="control-group">
+              <span class="control-label">Suara</span>
+              <div class="radio-group">
+                <input type="radio" id="gender-female" name="gender" value="female" checked>
+                <label for="gender-female">Wanita</label>
+                <input type="radio" id="gender-male" name="gender" value="male">
+                <label for="gender-male">Pria</label>
+              </div>
+            </div>
+          </div>
+
+          <button id="btnSynthesize" class="primary-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            Ucapkan Teks
+            <div class="spinner-small" hidden></div>
+          </button>
+
+          <!-- TTS output -->
+          <div id="tts-output-area" class="output-area" hidden>
+            <h3>Hasil Suara</h3>
+            <audio id="audioPlayer" controls></audio>
+            <button id="btnDownload" class="secondary-btn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Unduh Audio
+            </button>
+          </div>
+
+          <div id="ttsError" class="error-msg" hidden></div>
+        </div>
+
+        <!-- ═══════════════════════════════ ASR SECTION ═══ -->
+        <div id="asr-section" class="tab-content">
+
+          <p class="section-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            </svg>
+            Rekam Suara Nama Bulan
+          </p>
+
+          <!-- Record card (mirrors TTS input card structure) -->
+          <div class="asr-record-card">
+            <div class="mic-wrapper">
+              <button id="btnRecord" class="mic-btn">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                  <line x1="12" y1="19" x2="12" y2="22"/>
+                </svg>
+              </button>
+              <div class="pulse-ring"></div>
+            </div>
+            <p id="asr-status" class="status-text">Klik mikrofon untuk merekam nama bulan</p>
+          </div>
+
+          <!-- Result card (mirrors TTS output card structure) -->
+          <div id="asr-result-area" class="asr-result-card" hidden>
+            <p class="result-label">Hasil Deteksi CNN</p>
+            <h2 id="asr-prediction">—</h2>
+            <div class="confidence-row">
+              <span class="confidence-label">Keyakinan Model:</span>
+              <div class="confidence-bar-wrap">
+                <div class="confidence-bar" id="asr-confidence-bar"></div>
+              </div>
+              <span class="confidence-label"><span id="asr-confidence">0</span>%</span>
+            </div>
+          </div>
+
+          <div id="asrError" class="error-msg" hidden></div>
+        </div>
+
+      </div><!-- /tab-content-wrapper -->
+    </div><!-- /glass-panel -->
+
+  </div><!-- /container -->
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <!-- Confidence bar animation hook (pure UI, no backend change) -->
+  <script>
+    (function() {
+      const bar = document.getElementById('asr-confidence-bar');
+      const confSpan = document.getElementById('asr-confidence');
+      if (!bar || !confSpan) return;
+      const observer = new MutationObserver(() => {
+        const val = parseFloat(confSpan.textContent) || 0;
+        bar.style.width = Math.min(val, 100) + '%';
+      });
+      observer.observe(confSpan, { childList: true, characterData: true, subtree: true });
+    })();
+  </script>
+</body>
+</html>
