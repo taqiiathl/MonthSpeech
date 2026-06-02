@@ -131,12 +131,39 @@ while True:
             fitur_mfcc = proses_audio_ke_mfcc(TEMP_AUDIO_PATH)
             input_model = fitur_mfcc.reshape(1, N_MFCC, MAX_LEN, 1)
             
+            # # Prediksi oleh file .h5
+            # prediksi = model.predict(input_model)
+            # indeks_tertinggi = np.argmax(prediksi)
+            
+            # # Update Variabel untuk Ditampilkan ke GUI
+            # hasil_prediksi = CLASSES[indeks_tertinggi]
+            
             # Prediksi oleh file .h5
             prediksi = model.predict(input_model)
+
+            print("\n========== HASIL SOFTMAX ==========")
+
+            for i, kelas in enumerate(CLASSES):
+                print(
+                    f"{kelas:<12} : {prediksi[0][i]:.4f}"
+                )
+
+            print("===================================\n")
+
             indeks_tertinggi = np.argmax(prediksi)
-            
-            # Update Variabel untuk Ditampilkan ke GUI
+
+            print(
+                "INDEX TERPILIH :",
+                indeks_tertinggi
+            )
+
+            print(
+                "KELAS TERPILIH :",
+                CLASSES[indeks_tertinggi]
+            )
+
             hasil_prediksi = CLASSES[indeks_tertinggi]
+
             persentase_yakin = f"{prediksi[0][indeks_tertinggi] * 100:.2f}%"
             status_rekam = "Selesai! Tekan SPACE lagi untuk mencoba suara baru."
             

@@ -85,6 +85,31 @@ nama_kelas = le.classes_
 print("\nClassification Report Lengkap:")
 print(classification_report(y_true, y_pred, target_names=nama_kelas))
 
+report = classification_report(
+    y_true,
+    y_pred,
+    target_names=nama_kelas
+)
+
+print("\nClassification Report Lengkap:")
+print(report)
+
+with open(
+    "classification_report.txt",
+    "w",
+    encoding="utf-8"
+) as f:
+
+    f.write(
+        "Classification Report\n\n"
+    )
+
+    f.write(report)
+
+print(
+    "Classification Report disimpan ke classification_report.txt"
+)
+
 # 6. Visualisasikan Confusion Matrix dengan Heatmap (Seaborn)
 plt.figure(figsize=(10, 8))
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
@@ -98,4 +123,14 @@ plt.yticks(rotation=0)
 plt.tight_layout()
 
 # 7. Tampilkan grafik ke layar
+plt.savefig(
+    "confusion_matrix.png",
+    dpi=300,
+    bbox_inches="tight"
+)
+
+print(
+    "Confusion Matrix disimpan ke confusion_matrix.png"
+)
+
 plt.show()
