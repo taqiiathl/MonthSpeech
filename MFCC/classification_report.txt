@@ -3,14 +3,14 @@ Classification Report
               precision    recall  f1-score   support
 
      Agustus       1.00      1.00      1.00         8
-       April       0.90      0.78      0.84        23
+       April       0.95      0.83      0.88        23
     Desember       1.00      1.00      1.00        19
-    Februari       1.00      1.00      1.00        24
-     Januari       1.00      0.86      0.92        21
+    Februari       1.00      0.92      0.96        24
+     Januari       0.95      0.95      0.95        21
         Juli       1.00      1.00      1.00         9
-        Juni       1.00      1.00      1.00        28
-       Maret       0.83      1.00      0.91        29
-         Mei       1.00      1.00      1.00        22
+        Juni       0.96      0.96      0.96        28
+       Maret       0.88      1.00      0.94        29
+         Mei       0.96      1.00      0.98        22
     November       1.00      1.00      1.00        23
      Oktober       1.00      1.00      1.00        16
    September       1.00      1.00      1.00         8
