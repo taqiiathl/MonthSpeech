@@ -27,7 +27,7 @@ for nama_bulan in os.listdir(DATASET_CLEAN):
                 normals= librosa.util.normalize(trim)
                 prem= librosa.effects.preemphasis(normals)
 
-                # Ekstraksi MFCC
+
                 mfcc = librosa.feature.mfcc(y=prem, sr=sr, n_mfcc=N_MFCC)
                 
                 bentuk_asal = mfcc.shape
@@ -42,10 +42,10 @@ for nama_bulan in os.listdir(DATASET_CLEAN):
                 X.append(mfcc)
                 y.append(nama_bulan)
                 
-                # OUTPUT LOG PROSES
+                
                 print(f"   🎵 {nama_file} -> Dimensi Asli: {bentuk_asal} -> Dimensi setelah Padding: {mfcc.shape}")
 
-# Mengubah menjadi Numpy Array
+
 X = np.array(X)
 y = np.array(y)
 print(f"============= NILAI X NYA ==============")
@@ -54,7 +54,7 @@ print(X)
 print(f"============= NILAI Y NYA ==============")
 print(y)
 
-# Menyimpan matriks ke dalam file biner (.npy) untuk Tahap 3
+
 np.save("X_features.npy", X)
 np.save("y_labels.npy", y)
 

@@ -6,7 +6,7 @@ import pandas as pd
 # =========================
 # DATASET PATH
 # =========================
-DATASET_PATH = "dataset"
+DATASET_PATH = "dataset_clean"
 
 # =========================
 # LIST FITUR & LABEL

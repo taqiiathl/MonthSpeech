@@ -24,10 +24,9 @@ jumlah_kelas = len(le.classes_)
 print("Log: Daftar kelas/bulan yang dideteksi:", le.classes_)
 
 # 3. Reshape agar sesuai format input gambar CNN (Height, Width, Channel)
-# Channel = 1 karena MFCC dianggap gambar hitam-putih (Grayscale)
 X = X.reshape(X.shape[0], X.shape[1], X.shape[2], 1)
 
-# 4. Split Data (80% Training, 20% Testing)
+# 4. Split Data 
 X_train, X_test, y_train, y_test = train_test_split(X, y_categorical, test_size=0.2, random_state=42)
 print(f"Log: Data Latih = {X_train.shape[0]}, Data Uji = {X_test.shape[0]}")
 

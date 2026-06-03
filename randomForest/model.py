@@ -8,9 +8,6 @@ from sklearn.metrics import classification_report, accuracy_score, confusion_mat
 import joblib
 
 # joblib untuk load/save model
-
-
-
 # ==========================================
 # 1. FUNGSI EKSTRAKSI FITUR
 # ==========================================
@@ -24,7 +21,7 @@ def extract_features(file_path):
 # ==========================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATASET_PATH = os.path.join(BASE_DIR, "..", "Dataset")
-CSV_OUT_PATH = os.path.join(BASE_DIR, "dataset_features.csv")
+CSV_OUT_PATH = os.path.join(BASE_DIR, "features.csv")
 
 data_rows = []
 

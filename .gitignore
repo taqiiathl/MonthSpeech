@@ -1,6 +1,7 @@
-# Mengabaikan file fitur X dan label y (format .npy)
+
 MFCC/X_features.npy
 MFCC/y_labels.npy
 
-# Mengabaikan file model CNN (format .h5)
 MFCC/model_suara_bulan_cnn.h5
+MFCC/preprocessing.py
+MFCC/tempCodeRunnerFile.py

@@ -6,9 +6,8 @@ import os
 from audio_recorder_streamlit import audio_recorder
 
 
-# ==========================================
 # KONFIGURASI PARAMETER (WAJIB SAMA DENGAN TRAINING)
-# ==========================================
+
 MAX_LEN = 50
 N_MFCC = 13
 
@@ -60,10 +59,7 @@ def proses_audio_ke_mfcc(file_path):
         
     return mfcc
 
-# ==========================================
-# INISIALISASI MEMORI SEMENTARA (SESSION STATE)
-# ==========================================
-# Ini penting agar suara yang sudah direkam tidak hilang saat tombol klasifikasi diklik
+
 if 'audio_terrekam' not in st.session_state:
     st.session_state.audio_terrekam = None
 

@@ -56,8 +56,8 @@ def proses_audio_ke_mfcc(file_path):
         
     return mfcc
 
-# 3. MEMBUAT TAMPILAN INTERFACE DENGAN CV2 (TETAP SAMA)
-# Siapkan canvas hitam ukuran 600x400 piksel
+
+
 canvas = np.zeros((400, 600, 3), dtype="uint8")
 window_name = "Aplikasi Klasifikasi Bulan - CNN Realtime"
 
@@ -66,8 +66,8 @@ persentase_yakin = "0.00%"
 status_rekam = "Tekan SPACE untuk mulai rekam 2 detik"
 
 while True:
-    # Gambar Ulang Background agar teks tidak menumpuk
-    canvas.fill(30) # Warna abu-abu gelap agar modern
+    
+    canvas.fill(30)
 
     # Desain Header GUI
     cv2.putText(canvas, "🎙️ AUDIO RECOGNITION (CNN)", (30, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
