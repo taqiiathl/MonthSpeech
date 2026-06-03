@@ -48,6 +48,11 @@ for nama_bulan in os.listdir(DATASET_CLEAN):
 # Mengubah menjadi Numpy Array
 X = np.array(X)
 y = np.array(y)
+print(f"============= NILAI X NYA ==============")
+print(X)
+
+print(f"============= NILAI Y NYA ==============")
+print(y)
 
 # Menyimpan matriks ke dalam file biner (.npy) untuk Tahap 3
 np.save("X_features.npy", X)

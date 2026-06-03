@@ -37,10 +37,6 @@ model = Sequential([
     MaxPooling2D(pool_size=(2, 2)),
     Dropout(0.2),
     
-    Conv2D(64, kernel_size=(3, 3), activation='relu'),
-    MaxPooling2D(pool_size=(2, 2)),
-    Dropout(0.2),
-    
     Flatten(),
     Dense(128, activation='relu'),
     Dropout(0.3),

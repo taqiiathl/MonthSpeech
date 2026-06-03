@@ -34,6 +34,24 @@ def proses_audio_ke_mfcc(file_path):
     audio_clean, _ = librosa.effects.trim(audio, top_db=20)
     mfcc = librosa.feature.mfcc(y=audio_clean, sr=sr, n_mfcc=N_MFCC)
     
+    
+    # 1. Trim silence (top_db=30)
+    trim, _ = librosa.effects.trim(y=audio, top_db=30)
+    
+    # Mencegah error jika audio kosong setelah di-trim
+    if len(trim) == 0:
+        trim = audio
+        
+    # 2. Normalize
+    normals = librosa.util.normalize(trim)
+    
+    # 3. Preemphasis
+    prem = librosa.effects.preemphasis(normals)
+    
+    # 4. Extract MFCC
+    mfcc = librosa.feature.mfcc(y=prem, sr=sr, n_mfcc=N_MFCC)
+    
+    # 5. Padding/Truncating
     if mfcc.shape[1] < MAX_LEN:
         pad_width = MAX_LEN - mfcc.shape[1]
         mfcc = np.pad(mfcc, pad_width=((0, 0), (0, pad_width)), mode='constant')
