@@ -1,12 +1,5 @@
+# Mengabaikan folder Dataset yang berada di root/luar
+/Dataset/
 
-MFCC/X_features.npy
-MFCC/y_labels.npy
-MFCC/dataset_clean
-MFCC/model_suara_bulan_cnn.h5
-MFCC/preprocessing.py
-MFCC/tempCodeRunnerFile.py
-feature.csv
-model_asr.pkl
-MFCC/model_suara_bulan_cnn.h5
-MFCC/x_features.npy
-MFCC/y_labels.npy
+# Mengabaikan folder dataset_clean yang ada di dalam folder MFCC
+/MFCC/dataset_clean/
