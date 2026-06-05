@@ -1,0 +1,5 @@
+# Mengabaikan folder Dataset yang berada di root/luar
+/Dataset/
+
+# Mengabaikan folder dataset_clean yang ada di dalam folder MFCC
+/MFCC/dataset_clean/

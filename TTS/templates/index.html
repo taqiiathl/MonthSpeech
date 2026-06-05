@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SuaraKita — Text to Speech</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ── HEADER ──────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="28" height="28" rx="8" fill="currentColor" class="brand-rect"/>
+            <path d="M8 14 Q14 6 20 14 Q14 22 8 14Z" fill="white" opacity="0.9"/>
+            <circle cx="14" cy="14" r="3" fill="white"/>
+          </svg>
+        </span>
+        <span class="brand-name">SuaraKita</span>
+      </div>
+      <p class="tagline">Konversi teks Bahasa Indonesia menjadi suara</p>
+    </div>
+  </header>
+
+  <!-- ── MAIN ───────────────────────────────────────────── -->
+  <main class="container main-layout">
+
+    <!-- Kartu input -->
+    <section class="card card-input" aria-label="Input Teks">
+      <div class="card-header">
+        <h2>Teks yang Diucapkan</h2>
+        <span class="char-counter"><span id="charCount">0</span> / 5000</span>
+      </div>
+
+      <textarea
+        id="inputText"
+        class="teks-input"
+        placeholder="Ketik atau tempel teks di sini…"
+        maxlength="5000"
+        aria-label="Input teks"
+        autofocus
+      ></textarea>
+
+      <!-- Kontrol -->
+      <div class="controls-row">
+
+        <!-- Kecepatan -->
+        <fieldset class="control-group">
+          <legend class="control-label">Kecepatan</legend>
+          <div class="pill-group" role="group" aria-label="Pilih kecepatan">
+            <label class="pill">
+              <input type="radio" name="speed" value="slow" />
+              <span>🐢 Lambat</span>
+            </label>
+            <label class="pill">
+              <input type="radio" name="speed" value="normal" checked />
+              <span>▶ Normal</span>
+            </label>
+            <label class="pill">
+              <input type="radio" name="speed" value="fast" />
+              <span>⚡ Cepat</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- Gender -->
+        <fieldset class="control-group">
+          <legend class="control-label">Suara</legend>
+          <div class="pill-group" role="group" aria-label="Pilih gender suara">
+            <label class="pill">
+              <input type="radio" name="gender" value="female" checked />
+              <span>👩 Perempuan</span>
+            </label>
+            <label class="pill">
+              <input type="radio" name="gender" value="male" />
+              <span>👨 Laki-laki</span>
+            </label>
+          </div>
+        </fieldset>
+
+      </div><!-- /controls-row -->
+
+      <!-- Tombol utama -->
+      <button id="btnSynthesize" class="btn-synthesize" aria-live="polite">
+        <span class="btn-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+        </span>
+        <span class="btn-text">Ucapkan Teks</span>
+      </button>
+
+      <!-- Error -->
+      <div id="errorMsg" class="error-msg" role="alert" aria-live="assertive" hidden></div>
+    </section>
+
+    <!-- Kartu output / player -->
+    <section class="card card-output" id="outputCard" aria-label="Hasil Suara" hidden>
+      <div class="card-header">
+        <h2>Hasil Suara</h2>
+        <div class="output-badges" id="outputBadges"></div>
+      </div>
+
+      <!-- Waveform dekoratif -->
+      <div class="waveform-wrap" aria-hidden="true">
+        <svg class="waveform" id="waveformSvg" viewBox="0 0 400 60" preserveAspectRatio="none">
+          <!-- Bar diisi via JS -->
+        </svg>
+      </div>
+
+      <!-- Player HTML5 -->
+      <audio id="audioPlayer" controls class="audio-player" aria-label="Pemutar audio"></audio>
+
+      <!-- Tombol aksi -->
+      <div class="output-actions">
+        <button id="btnDownload" class="btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Unduh MP3
+        </button>
+        <button id="btnReset" class="btn-ghost">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="1 4 1 10 7 10"/>
+            <path d="M3.51 15a9 9 0 1 0 .49-3.34"/>
+          </svg>
+          Buat Baru
+        </button>
+      </div>
+    </section>
+
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" class="loading-overlay" hidden aria-live="polite" aria-label="Sedang memproses…">
+      <div class="loading-inner">
+        <div class="spinner" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+        <p>Sedang menghasilkan suara…</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ── FOOTER ──────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>Dibuat dengan <strong>gTTS</strong> + <strong>Flask</strong> &nbsp;·&nbsp; Bahasa Indonesia</p>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
